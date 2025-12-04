@@ -1,0 +1,296 @@
+/* ==========================
+   BASE CONTAINER & LAYOUT
+   ========================== */
+.container {
+    min-height: 100vh;
+    background: #000;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden; /* Prevent scrolling on the main container */
+}
+
+
+/* ==========================
+   PROGRESS BAR
+   ========================== */
+.progressBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+    z-index: 1000;
+}
+
+.progressFill {
+    height: 100%;
+    background: #fff;
+    transition: width 0.2s ease;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* ==========================
+   LOADING
+   ========================== */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: #000;
+}
+
+.loadingText {
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+}
+
+/* ==========================
+   HEADER
+   ========================== */
+.header {
+    display: flex;
+    justify-content: center;
+    background: #0a0a0a;
+    border-bottom: 1px solid #333;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.headerContent {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    gap: 1rem;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+}
+
+.headerLeft {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.headerTitle {
+    font-size: 1rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    margin: 0;
+}
+
+.headerSubtitle {
+    font-size: 0.65rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #666;
+    margin: 0;
+}
+
+.backBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: #999;
+    font-size: 0.7rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+    padding: 0;
+    margin-bottom: 0.5rem;
+}
+.backBtn:hover:not(:disabled) { color: #fff; }
+.backBtn:disabled { cursor: not-allowed; opacity: 0.5; }
+
+.headerRight {
+    display: flex;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* ==========================
+   BUTTONS
+   ========================== */
+.cancelBtn, .saveBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.7rem;
+}
+
+.cancelBtn {
+    background: transparent;
+    border: 1px solid #333;
+    color: #999;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.cancelBtn:hover:not(:disabled) {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #666;
+    color: #fff;
+}
+.cancelBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.saveBtn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: #fff;
+    border: 1px solid #fff;
+    color: #000;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+.saveBtn:hover:not(:disabled) {
+    background: #f0f0f0;
+    border-color: #f0f0f0;
+}
+.saveBtn:disabled { opacity: 0.7; cursor: not-allowed; }
+
+.saveBtnLoading {
+    background: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+.spinIcon { animation: spin 1s linear infinite; flex-shrink: 0; }
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ==========================
+   MESSAGES
+   ========================== */
+.message {
+    width: calc(100% - 2rem);
+    max-width: 100%;
+    margin: 1rem;
+    padding: 0.75rem;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    position: sticky;
+    top: 70px; /* Adjust based on header height */
+    z-index: 50;
+}
+
+.messageAnimated { animation: slideDown 0.3s ease-out; }
+@keyframes slideDown { from { opacity:0; transform:translateY(-10px); } to { opacity:1; transform:translateY(0); } }
+
+.messageSuccess { background: rgba(0,255,0,0.1); border: 1px solid rgba(0,255,0,0.3); color:#0f0; }
+.messageError { background: rgba(255,0,0,0.1); border: 1px solid rgba(255,0,0,0.3); color:#f00; }
+.messageInfo { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); color:#fff; }
+
+/* ==========================
+   FORM
+   ========================== */
+.form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide overflow */
+}
+
+.formContent {
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    overflow-y: auto; /* Allow scrolling within the form content */
+    flex: 1;
+}
+
+.formContentDisabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* ==========================
+   RESPONSIVE DESIGN
+   ========================== */
+
+/* Mobile (<768px) */
+@media (max-width: 767px) {
+    .headerContent {
+        padding: 0.75rem 1rem;
+        gap: 0.5rem;
+    }
+
+    .headerTitle {
+        font-size: 0.9rem;
+    }
+
+    .backBtn {
+        font-size: 0.65rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .cancelBtn, .saveBtn {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.65rem;
+    }
+
+    .formContent {
+        padding: 0.75rem;
+        gap: 1rem;
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+    .headerContent {
+        padding: 1rem 1.5rem;
+    }
+
+    .formContent {
+        padding: 1.5rem;
+    }
+}
+
+/* Desktop (>=1024px) */
+@media (min-width: 1024px) {
+    .formContent {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 2rem;
+        gap: 2rem;
+    }
+    .message {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

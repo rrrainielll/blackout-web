@@ -1,0 +1,608 @@
+/* ============================================================================
+   BLOG LAYOUT - MAIN STRUCTURE
+   ============================================================================ */
+
+/* ============================================================================
+   LAYOUT WRAPPERS
+   ============================================================================ */
+
+.mobileReaderWrapper {
+  display: none;
+}
+
+.desktopLayoutWrapper {
+  display: block;
+}
+
+.blogLayout {
+  display: flex;
+  gap: var(--space-12);
+  min-height: calc(100vh - 100px);
+  width: 100%;
+}
+
+/* ============================================================================
+   SIDEBAR COLUMNS
+   ============================================================================ */
+
+/* LEFT COLUMN - Navigation */
+.blogSidebarLeft {
+  flex: 0.7;
+  border-right: 1px solid var(--border);
+  padding-right: var(--space-8);
+  position: sticky;
+  top: 6rem;
+  align-self: flex-start;
+  height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+
+/* MIDDLE COLUMN - All Posts */
+.blogSidebarMiddle {
+  flex: 1;
+  border-right: 1px solid var(--border);
+  padding-right: var(--space-8);
+  position: sticky;
+  top: 6rem;
+  align-self: flex-start;
+  height: calc(100vh - 6rem);
+  overflow-y: auto;
+}
+
+/* RIGHT COLUMN - Content */
+.blogContent {
+  flex: 2;
+  padding-bottom: var(--space-16);
+  min-width: 0;
+}
+
+/* ============================================================================
+   MOBILE MENU BUTTON
+   ============================================================================ */
+
+.mobileMenuButton {
+  display: none;
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  background: var(--color-white);
+  color: var(--color-black);
+  border: 1px solid var(--color-white);
+  border-radius: var(--radius-base);
+  padding: var(--space-3) var(--space-5);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  z-index: calc(var(--z-modal) - 1);
+  transition: all var(--transition-base);
+  align-items: center;
+  gap: var(--space-2);
+  box-shadow: var(--shadow-md);
+}
+
+.mobileMenuButton:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================================================
+   MOBILE MENU OVERLAY
+   ============================================================================ */
+
+.mobileMenuOverlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: var(--z-modal);
+}
+
+/* Mobile Menu Backdrop */
+.mobileMenuBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(4px);
+  animation: backdropFadeIn var(--transition-slow);
+}
+
+@keyframes backdropFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Mobile Menu Panel */
+.mobileMenuPanel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 90%;
+  max-width: 500px;
+  height: 100%;
+  background: var(--color-black);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-xl);
+  overflow-y: auto;
+  animation: slideInRight var(--transition-slow);
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 80px;
+  /* Space for fixed close button */
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+/* Mobile Menu Close Button - FIXED at bottom of screen */
+.mobileMenuClose {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: var(--color-black);
+  border: none;
+  border-top: 1px solid var(--border);
+  color: var(--color-white);
+  padding: var(--space-5) var(--space-6);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  z-index: calc(var(--z-modal) + 1);
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.mobileMenuClose:hover {
+  background: var(--color-white);
+  color: var(--color-black);
+}
+
+/* ============================================================================
+   MOBILE MENU CONTENT
+   ============================================================================ */
+
+.mobileMenuContent {
+  padding: var(--space-8) var(--space-6);
+}
+
+.mobileMenuSection {
+  margin-bottom: var(--space-12);
+  padding-bottom: var(--space-12);
+  border-bottom: 1px solid var(--color-gray-600);
+}
+
+.mobileMenuSection:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+
+/* ============================================================================
+   SECTION HEADERS
+   ============================================================================ */
+
+.sectionHeader {
+  font-size: var(--text-xs);
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-4);
+  font-weight: var(--font-medium);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+/* ============================================================================
+   PINNED POST
+   ============================================================================ */
+
+.pinnedPostBtn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-base);
+  padding: var(--space-3);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-white);
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-tight);
+  transition: all var(--transition-fast);
+}
+
+.pinnedPostBtn:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+/* ============================================================================
+   POSTS LISTS
+   ============================================================================ */
+
+.latestPostsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.latestPostBtn {
+  background: transparent;
+  color: var(--text-muted);
+  border: none;
+  padding: var(--space-2) 0;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  transition: color var(--transition-fast);
+}
+
+.latestPostBtn.active {
+  background: var(--color-white);
+  color: var(--color-black);
+  padding: var(--space-2) var(--space-3);
+  border-radius: var(--radius-base);
+}
+
+.latestPostBtn:hover:not(.active) {
+  color: var(--color-white);
+}
+
+.postsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.postItem {
+  cursor: pointer;
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  border: 1px solid transparent;
+  transition: all var(--transition-base);
+  margin-bottom: var(--space-2);
+}
+
+.postItem:hover {
+  background: var(--surface-hover);
+  border-color: var(--border);
+}
+
+.postItem:has(.active) {
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.postTitle {
+  font-size: var(--text-md);
+  font-weight: var(--font-medium);
+  margin-bottom: var(--space-2);
+  color: var(--text-secondary);
+  line-height: var(--leading-snug);
+  transition: color var(--transition-base);
+  font-family: var(--font-mono);
+}
+
+.postTitle.active {
+  font-weight: var(--font-semibold);
+  color: var(--color-white);
+}
+
+.postMeta {
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.postMetaItem {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.postTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.postTag {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.3rem;
+  border: 1px solid currentColor;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  font-family: var(--font-mono);
+}
+
+/* ============================================================================
+   TAGS
+   ============================================================================ */
+
+.tagsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.tagBtn {
+  font-size: var(--text-xs);
+  padding: var(--space-1) var(--space-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-base);
+  background-color: transparent;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  cursor: pointer;
+  font-family: var(--font-mono);
+  transition: all var(--transition-fast);
+}
+
+.tagBtn:hover {
+  background-color: var(--color-white);
+  color: var(--color-black);
+  border-color: var(--color-white);
+}
+
+/* ============================================================================
+   ALL POSTS SECTION
+   ============================================================================ */
+
+.allPostsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-xs);
+  color: var(--color-white);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: var(--space-6);
+  font-weight: var(--font-medium);
+}
+
+.clearFilterBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-disabled);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  font-size: var(--text-xs);
+  transition: color var(--transition-fast);
+}
+
+.clearFilterBtn:hover {
+  color: var(--text-muted);
+}
+
+/* ============================================================================
+   CONTENT AREA
+   ============================================================================ */
+
+.contentTitle {
+  font-size: var(--text-5xl);
+  font-weight: var(--font-semibold);
+  margin-bottom: var(--space-8);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-tight);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+.contentDescription {
+  font-size: var(--text-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.homepageContent {
+  /* Visible by default on desktop */
+}
+
+.aboutBox {
+  margin-top: var(--space-12);
+  padding: var(--space-8);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-base);
+}
+
+/* ============================================================================
+   POST METADATA FOOTER
+   ============================================================================ */
+
+.postMetadata {
+  margin-top: var(--space-12);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.postMetadataDate {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+.postMetadataTags {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* ============================================================================
+   LOADING STATE
+   ============================================================================ */
+
+.loadingContainer {
+  text-align: center;
+  padding: var(--space-16);
+  color: var(--text-disabled);
+}
+
+.loadingText {
+  font-size: var(--text-sm);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ============================================================================
+   SCROLLBAR STYLING
+   ============================================================================ */
+
+.blogSidebarMiddle::-webkit-scrollbar,
+.mobileMenuPanel::-webkit-scrollbar,
+.blogSidebarLeft::-webkit-scrollbar {
+  width: 4px;
+}
+
+.blogSidebarMiddle::-webkit-scrollbar-track,
+.mobileMenuPanel::-webkit-scrollbar-track,
+.blogSidebarLeft::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.blogSidebarMiddle::-webkit-scrollbar-thumb,
+.mobileMenuPanel::-webkit-scrollbar-thumb,
+.blogSidebarLeft::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: var(--radius-sm);
+}
+
+.blogSidebarMiddle::-webkit-scrollbar-thumb:hover,
+.mobileMenuPanel::-webkit-scrollbar-thumb:hover,
+.blogSidebarLeft::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+/* Tablet & Mobile - Stack Layout */
+@media (max-width: 1024px) {
+  .mobileReaderWrapper {
+    display: block;
+  }
+
+  .desktopLayoutWrapper {
+    display: none;
+  }
+
+  .blogLayout {
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  .mobileMenuButton,
+  .mobileMenuOverlay {
+    display: flex;
+  }
+
+  .homepageContent {
+    display: none;
+  }
+}
+
+/* Mobile Specific */
+@media (max-width: 768px) {
+  .mobileMenuButton {
+    bottom: var(--space-4);
+    right: var(--space-4);
+    padding: var(--space-2) var(--space-4);
+    font-size: 0.6875rem;
+  }
+
+  .mobileMenuContent {
+    padding: var(--space-6) var(--space-4);
+  }
+
+  .mobileMenuSection {
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-8);
+  }
+
+  .contentTitle {
+    font-size: 1.75rem;
+    margin-bottom: var(--space-6);
+  }
+
+  .contentDescription {
+    font-size: var(--text-md);
+    line-height: var(--leading-normal);
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 640px) {
+  .mobileMenuPanel {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+  .mobileMenuPanel,
+  .mobileMenuBackdrop,
+  .mobileMenuButton {
+    animation: none;
+    transition: none;
+  }
+}

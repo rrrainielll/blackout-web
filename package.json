@@ -1,0 +1,47 @@
+{
+  "name": "blackout",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
+    "update-deps": "npx npm-check-updates -u --target minor && npm install",
+    "postinstall": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.22.0",
+    "@types/ioredis": "^4.28.10",
+    "bcryptjs": "^2.4.3",
+    "formidable": "^3.5.4",
+    "ioredis": "^5.8.2",
+    "lucide-react": "^0.555.0",
+    "next": "16.0.6",
+    "next-auth": "^4.24.13",
+    "nodemailer": "^7.0.11",
+    "pg": "^8.16.3",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "react-markdown": "^9.1.0",
+    "react-masonry-css": "^1.0.16",
+    "react-syntax-highlighter": "^15.6.6",
+    "rehype-raw": "^7.0.0",
+    "remark-gfm": "^4.0.1"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
+    "@types/formidable": "^3.4.6",
+    "@types/node": "^20",
+    "@types/nodemailer": "^6.4.21",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "babel-plugin-react-compiler": "1.0.0",
+    "baseline-browser-mapping": "^2.8.32",
+    "eslint": "^9",
+    "eslint-config-next": "16.0.6",
+    "prisma": "^5.22.0",
+    "typescript": "^5"
+  }
+}

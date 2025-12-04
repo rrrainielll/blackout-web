@@ -1,0 +1,280 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
+}
+
+.titleInput {
+    width: 100%;
+    padding: 1rem;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid #333;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.titleInput:focus {
+    border-bottom-color: #fff;
+}
+
+.titleInput::placeholder {
+    color: #666;
+}
+
+.metaControls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: nowrap;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.tagsWrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+}
+
+.tagsList {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex-wrap: wrap;
+    flex: 1;
+    min-width: 0;
+    max-height: 3.5rem;
+    overflow: hidden;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    color: #999;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.removeTagBtn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: #999;
+    display: flex;
+    align-items: center;
+    transition: color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.removeTagBtn:hover {
+    color: #fff;
+}
+
+.removeTagBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
+
+.tagInputWrapper {
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+}
+
+.tagInput {
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+    background: transparent;
+    border: 1px solid #333;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    outline: none;
+    transition: border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+.tagInput:focus {
+    border-color: #666;
+}
+
+.tagInput::placeholder {
+    color: #666;
+}
+
+.suggestions {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 0.25rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.suggestionItem {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #999;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.suggestionItem:hover,
+.suggestionItemActive {
+    background: var(--surface-hover);
+    color: var(--color-white);
+}
+
+.suggestionItem:not(:last-child) {
+    border-bottom: 1px solid var(--border);
+}
+
+.publishedLabel {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #999;
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 0 0.5rem;
+}
+
+.publishedLabel input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #fff;
+    flex-shrink: 0;
+}
+
+/* ============= TABLET (768px - 1024px) ============= */
+@media (max-width: 1024px) {
+    .titleInput {
+        padding: 0.75rem;
+        font-size: 1.25rem;
+    }
+
+    .tagInput {
+        padding: 0.2rem 0.4rem;
+    }
+
+    .tag {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.4rem;
+    }
+}
+
+/* ============= MOBILE (< 768px) ============= */
+@media (max-width: 768px) {
+    .titleInput {
+        font-size: 1.1rem;
+        padding: 0.75rem;
+    }
+
+    .metaControls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+
+    .tagsWrapper {
+        min-width: 100%;
+        width: 100%;
+    }
+
+    .tagsList {
+        gap: 0.4rem;
+    }
+
+    .tag {
+        font-size: 0.65rem;
+        padding: 0.2rem 0.35rem;
+    }
+
+    .publishedLabel {
+        font-size: 0.65rem;
+    }
+
+    .publishedLabel input[type="checkbox"] {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* ============= SMALL MOBILE (< 480px) ============= */
+@media (max-width: 480px) {
+    .titleInput {
+        font-size: 1rem;
+        padding: 0.5rem;
+    }
+
+    .metaControls {
+        gap: 0.5rem;
+    }
+
+    .tagsWrapper {
+        gap: 0.25rem;
+    }
+
+    .tagsList {
+        gap: 0.25rem;
+    }
+
+    .tag {
+        font-size: 0.6rem;
+        padding: 0.15rem 0.3rem;
+    }
+
+    .publishedLabel {
+        font-size: 0.6rem;
+    }
+
+    .publishedLabel input[type="checkbox"] {
+        width: 12px;
+        height: 12px;
+    }
+}

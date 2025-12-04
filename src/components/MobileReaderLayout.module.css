@@ -1,0 +1,243 @@
+/* ============================================================================
+   MOBILE READER LAYOUT
+   ============================================================================ */
+
+.mobileReaderContainer {
+    position: relative;
+    width: 100%;
+    /* Remove fixed height to allow scrolling */
+    min-height: calc(100vh - 80px);
+    padding-bottom: var(--space-6);
+}
+
+/* ============================================================================
+   HOMEPAGE CONTENT
+   ============================================================================ */
+
+.homepageContent {
+    padding: var(--space-6) var(--space-4) var(--space-6);
+    animation: fadeIn var(--transition-slow);
+}
+
+.contentTitle {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-semibold);
+    margin-bottom: var(--space-6);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-tight);
+    line-height: var(--leading-tight);
+    color: var(--text-primary);
+}
+
+.contentDescription {
+    font-size: var(--text-lg);
+    line-height: var(--leading-relaxed);
+    color: var(--text-muted);
+    margin-bottom: var(--space-8);
+}
+
+.aboutBox {
+    margin-top: var(--space-8);
+    padding: var(--space-6);
+    background-color: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-base);
+}
+
+/* ============================================================================
+   READER VIEW (POST CONTENT)
+   ============================================================================ */
+
+.readerView {
+    width: 100%;
+    background: var(--background);
+    animation: fadeIn var(--transition-slow);
+}
+
+/* ============================================================================
+   READER HEADER
+   ============================================================================ */
+
+.readerHeader {
+    border-bottom: 1px solid var(--border);
+    padding: var(--space-3) var(--space-4);
+}
+
+.backButton {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--color-white);
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.backButton:hover {
+    color: var(--foreground);
+}
+
+.backButton:active {
+    transform: scale(0.98);
+}
+
+/* ============================================================================
+   READER CONTENT
+   ============================================================================ */
+
+.readerContent {
+    padding: var(--space-6) var(--space-4) var(--space-6);
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.articleContent {
+    color: var(--color-gray-100);
+    line-height: var(--leading-relaxed);
+}
+
+/* ============================================================================
+   ARTICLE METADATA
+   ============================================================================ */
+
+.articleMetadata {
+    margin-top: var(--space-12);
+    padding: var(--space-8) var(--space-4);
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+}
+
+.articleDate {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-family: var(--font-mono);
+}
+
+.articleTags {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+    color: var(--text-disabled);
+}
+
+.articleTag {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    text-transform: uppercase;
+    letter-spacing: var(--tracking-wide);
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: all var(--transition-fast);
+}
+
+.articleTag:hover {
+    border-color: var(--foreground);
+    color: var(--foreground);
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================================
+   SCROLLBAR STYLING
+   ============================================================================ */
+
+.postsList::-webkit-scrollbar,
+.readerView::-webkit-scrollbar {
+    width: 4px;
+}
+
+.postsList::-webkit-scrollbar-track,
+.readerView::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.postsList::-webkit-scrollbar-thumb,
+.readerView::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: var(--radius-sm);
+}
+
+.postsList::-webkit-scrollbar-thumb:hover,
+.readerView::-webkit-scrollbar-thumb:hover {
+    background: var(--border-hover);
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================ */
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) {
+
+    .homepageContent,
+    .readerContent {
+        padding: var(--space-10) var(--space-8) var(--space-10);
+    }
+
+    .contentTitle {
+        font-size: var(--text-4xl);
+    }
+
+    .aboutBox {
+        padding: var(--space-8);
+    }
+}
+
+/* Small Mobile (< 480px) */
+@media (max-width: 480px) {
+    .contentTitle {
+        font-size: var(--text-2xl);
+    }
+
+    .contentDescription {
+        font-size: var(--text-base);
+    }
+}
+
+/* ============================================================================
+   ACCESSIBILITY
+   ============================================================================ */
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+
+    .homepageContent,
+    .readerView,
+    .backButton {
+        transition: none;
+    }
+
+    .homepageContent,
+    .readerContent {
+        animation: none;
+    }
+}
