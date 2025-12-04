@@ -59,4 +59,4 @@ A clean, developer-friendly blogging platform built with Next.js.
 
 Developed using **Vibe Coding**, and meticulously reviewed by **Rainiel Montañez**, leveraging **Claude Sonnet 4.5 Thinking**, **Claude Sonnet 4.5**, **Gemini Pro**, and **ChatGPT** for insights and enhancements.
 
-If you have any questions or suggestions, feel free to [email me](mailto:rainielmontanez@dex-server.space) or open an [issue on GitHub](https://github.com/rrrainiellll/blackout-web).
+If you have any questions or suggestions, feel free to [email me](mailto:rainielmontanez@dex-server.space) or open an [issue on GitHub](https://github.com/rrrainielll/blackout-web/issues).
