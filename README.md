@@ -11,6 +11,10 @@ A clean, developer-friendly blogging platform built with Next.js.
 *   **Responsive**: Optimized for desktop, tablet, and mobile.
 *   **SEO Ready**: Automatic meta tags and sitemap generation.
 
+## Preview
+
+![Blackout Preview](./preview/homepage.gif)
+
 ## Tech Stack
 
 *   **Next.js 15** (App Router)
