@@ -23,7 +23,7 @@ A clean, developer-friendly blogging platform built with Next.js.
 
 1.  **Clone the repository**
     ```bash
-    git clone https://github.com/yourusername/blackout.git
+    git clone https://github.com/rrrainielll/blackout-web.git
     cd blackout
     ```
 
@@ -35,14 +35,14 @@ A clean, developer-friendly blogging platform built with Next.js.
     POSTGRES_DB=blackout
     NEXTAUTH_SECRET=your_secret
     NEXTAUTH_URL=http://localhost:3000
-    # For npm testing
+    # For npm testing ensure that the progress docker is running.
     DATABASE_URL=postgresql://postgres:password@db:5432/blackout?schema=public
     ```
 
 
 3.  **Run with Docker**
     ```bash
-    docker-compose up --build
+    docker-compose up --build -d
     ```
     Access the app at `http://localhost:3000`.
 
