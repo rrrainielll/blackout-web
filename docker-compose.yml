@@ -5,16 +5,12 @@ services:
     build: .
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     environment:
-      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}?schema=public
+      - DATABASE_URL=postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-postgres}@db:5432/${POSTGRES_DB:-blackout}?schema=public
       - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
-      - NEXTAUTH_URL=http://localhost:3000
-      - SMTP_HOST=${SMTP_HOST}
-      - SMTP_PORT=${SMTP_PORT}
-      - SMTP_USER=${SMTP_USER}
-      - SMTP_PASSWORD=${SMTP_PASSWORD}
-      - SMTP_FROM_EMAIL=${SMTP_FROM_EMAIL}
-      - SMTP_SECURE=${SMTP_SECURE}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
     depends_on:
       db:
         condition: service_healthy
@@ -24,24 +20,47 @@ services:
     container_name: blackout-db
     image: postgres:15-alpine
     environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-blackout}
     ports:
       - "5432:5432"
     volumes:
       - blackout_db:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
+      test: "pg_isready -U ${POSTGRES_USER:-postgres}"
+      start_interval: 2s
+      start_period: 1m
     networks:
       - blackout
+
+  nocodb:
+    image: nocodb/nocodb:latest
+    container_name: nocodb
+    restart: always
+    ports:
+      - "8081:8080"
+    volumes:
+      - nocodb:/usr/app/data/
+    depends_on:
+      - db
+    environment:
+      NC_DB_TYPE: pg
+      NC_DB_HOST: blackout-db
+      NC_DB_PORT: 5432
+      NC_DB_USER: ${POSTGRES_USER:-postgres}
+      NC_DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      NC_DB_DATABASE: ${POSTGRES_DB:-blackout}
+      NC_AUTH_JWT_SECRET: "569a1821-0a93-45e8-87ab-eb857f20a010"
+    networks:
+      - blackout
+
 
 volumes:
   blackout_db:
     name: blackout_db
+  nocodb:
+    name: nocodb_data
 
 networks:
   blackout:

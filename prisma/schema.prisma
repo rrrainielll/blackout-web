@@ -79,4 +79,12 @@ model Settings {
   contactEmail      String   @default("rainielmontanez@dex-server.space")
   
   updatedAt    DateTime @updatedAt
+
+  // SMTP Settings
+  smtpHost      String   @default("smtp.gmail.com")
+  smtpPort      Int      @default(587)
+  smtpUser      String   @default("your-email@gmail.com")
+  smtpPassword  String   @default("yourpassword")
+  smtpSecure    Boolean  @default(false)
+  smtpFromEmail String   @default("your-email@gmail.com")
 }

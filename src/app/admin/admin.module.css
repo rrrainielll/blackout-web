@@ -587,27 +587,6 @@
 }
 
 /* ============================================================================
-   SCROLLBAR STYLING
-   ============================================================================ */
-
-.tabs::-webkit-scrollbar {
-    height: 4px;
-}
-
-.tabs::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.tabs::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: var(--radius-sm);
-}
-
-.tabs::-webkit-scrollbar-thumb:hover {
-    background: var(--border-hover);
-}
-
-/* ============================================================================
    DASHBOARD CARDS
    ============================================================================ */
 
@@ -630,15 +609,6 @@
     max-height: 600px;
     overflow-y: auto;
     padding-right: var(--space-2);
-}
-
-.postsList::-webkit-scrollbar {
-    width: 4px;
-}
-
-.postsList::-webkit-scrollbar-thumb {
-    background: var(--border);
-    border-radius: var(--radius-sm);
 }
 
 .postListItem {
@@ -687,6 +657,19 @@
     min-height: 150px;
     max-height: 300px;
     overflow-y: auto;
+}
+
+.previewBox::-webkit-scrollbar {
+    width: 2px;
+}
+
+.previewBox::-webkit-scrollbar-thumb {
+    background: var(--color-gray-700);
+    border-radius: var(--radius-full);
+}
+
+.previewBox::-webkit-scrollbar-thumb:hover {
+    background: var(--color-gray-500);
 }
 
 .codeTextarea {

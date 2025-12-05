@@ -1079,13 +1079,13 @@ nav {
 
   * {
     scrollbar-width: thin;
-    scrollbar-color: var(--border) transparent;
+    scrollbar-color: var(--color-gray-700) transparent;
   }
 
   /* Webkit browsers (Chrome, Edge, Safari) */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 2px;
+    height: 2px;
   }
 
   ::-webkit-scrollbar-track {
@@ -1093,10 +1093,10 @@ nav {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: var(--border);
+    background: var(--color-gray-700);
     border-radius: var(--radius-full);
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: var(--border-hover);
+    background: var(--color-gray-500);
   }

@@ -498,35 +498,6 @@
 }
 
 /* ============================================================================
-   SCROLLBAR STYLING
-   ============================================================================ */
-
-.blogSidebarMiddle::-webkit-scrollbar,
-.mobileMenuPanel::-webkit-scrollbar,
-.blogSidebarLeft::-webkit-scrollbar {
-  width: 4px;
-}
-
-.blogSidebarMiddle::-webkit-scrollbar-track,
-.mobileMenuPanel::-webkit-scrollbar-track,
-.blogSidebarLeft::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.blogSidebarMiddle::-webkit-scrollbar-thumb,
-.mobileMenuPanel::-webkit-scrollbar-thumb,
-.blogSidebarLeft::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: var(--radius-sm);
-}
-
-.blogSidebarMiddle::-webkit-scrollbar-thumb:hover,
-.mobileMenuPanel::-webkit-scrollbar-thumb:hover,
-.blogSidebarLeft::-webkit-scrollbar-thumb:hover {
-  background: var(--border-hover);
-}
-
-/* ============================================================================
    RESPONSIVE DESIGN
    ============================================================================ */
 

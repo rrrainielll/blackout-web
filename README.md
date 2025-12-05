@@ -55,6 +55,11 @@ A clean, developer-friendly blogging platform built with Next.js.
 *   **Push Schema**: `npx prisma db push`
 *   **View Data**: `npx prisma studio`
 
+## SMTP Configuration
+
+SMTP settings are now managed directly within the **Admin Dashboard** under the "SMTP Settings" section. You do not need to configure them in the `.env` file.
+
+
 ## Credits
 
 Developed using **Vibe Coding**, and meticulously reviewed by **Rainiel Montañez**, leveraging **Claude Sonnet 4.5 Thinking**, **Claude Sonnet 4.5**, **Gemini Pro**, and **ChatGPT** for insights and enhancements.

@@ -52,7 +52,14 @@ export async function PUT(request: NextRequest) {
             googleAnalyticsId,
             // Privacy Policy
             privacyPolicy,
-            contactEmail
+            contactEmail,
+            // SMTP Settings
+            smtpHost,
+            smtpPort,
+            smtpUser,
+            smtpPassword,
+            smtpSecure,
+            smtpFromEmail
         } = body
 
         let settings = await prisma.settings.findFirst()
@@ -73,7 +80,13 @@ export async function PUT(request: NextRequest) {
             ...(robotsTxt !== undefined && { robotsTxt }),
             ...(googleAnalyticsId !== undefined && { googleAnalyticsId }),
             ...(privacyPolicy !== undefined && { privacyPolicy }),
-            ...(contactEmail !== undefined && { contactEmail })
+            ...(contactEmail !== undefined && { contactEmail }),
+            ...(smtpHost !== undefined && { smtpHost }),
+            ...(smtpPort !== undefined && { smtpPort: parseInt(String(smtpPort)) }),
+            ...(smtpUser !== undefined && { smtpUser }),
+            ...(smtpPassword !== undefined && { smtpPassword }),
+            ...(smtpSecure !== undefined && { smtpSecure }),
+            ...(smtpFromEmail !== undefined && { smtpFromEmail })
         }
 
         if (!settings) {

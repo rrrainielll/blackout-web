@@ -74,6 +74,14 @@ function AdminContent() {
     const [robotsTxt, setRobotsTxt] = useState('User-agent: *\\nAllow: /')
     const [googleAnalyticsId, setGoogleAnalyticsId] = useState('')
 
+    // SMTP state
+    const [smtpHost, setSmtpHost] = useState('')
+    const [smtpPort, setSmtpPort] = useState(587)
+    const [smtpUser, setSmtpUser] = useState('')
+    const [smtpPassword, setSmtpPassword] = useState('')
+    const [smtpSecure, setSmtpSecure] = useState(false)
+    const [smtpFromEmail, setSmtpFromEmail] = useState('')
+
     useEffect(() => {
         const loadAllData = async () => {
             setLoading(true)
@@ -118,6 +126,20 @@ function AdminContent() {
             setSitemapEnabled(data.sitemapEnabled ?? true)
             setRobotsTxt(data.robotsTxt || 'User-agent: *\\nAllow: /')
             setGoogleAnalyticsId(data.googleAnalyticsId || '')
+            // SMTP fields
+            setSmtpHost(data.smtpHost || '')
+            setSmtpPort(data.smtpPort || 587)
+            setSmtpUser(data.smtpUser || '')
+            setSmtpPassword(data.smtpPassword || '')
+            setSmtpSecure(data.smtpSecure || false)
+            setSmtpFromEmail(data.smtpFromEmail || '')
+            // SMTP fields
+            setSmtpHost(data.smtpHost || '')
+            setSmtpPort(data.smtpPort || 587)
+            setSmtpUser(data.smtpUser || '')
+            setSmtpPassword(data.smtpPassword || '')
+            setSmtpSecure(data.smtpSecure || false)
+            setSmtpFromEmail(data.smtpFromEmail || '')
         } catch (error) {
             // Settings fetch error handled silently
         }
@@ -274,6 +296,38 @@ function AdminContent() {
 
             if (response.ok) {
                 addNotification('SEO settings updated', 'success');
+            } else {
+                addNotification('Update failed', 'error');
+            }
+        } catch (error) {
+            addNotification('An error occurred', 'error');
+        } finally {
+            setSettingsLoading(false);
+        }
+    };
+
+    const handleUpdateSMTP = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSettingsLoading(true);
+
+        try {
+            const payload = {
+                smtpHost,
+                smtpPort,
+                smtpUser,
+                smtpPassword,
+                smtpSecure,
+                smtpFromEmail
+            };
+
+            const response = await fetch('/api/settings', {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                addNotification('SMTP settings updated', 'success');
             } else {
                 addNotification('Update failed', 'error');
             }
@@ -649,6 +703,90 @@ function AdminContent() {
 
                         <button type="submit" className="btn btn-primary" disabled={settingsLoading}>
                             SAVE SEO SETTINGS
+                        </button>
+                    </form>
+                </div>
+
+                {/* 5. SMTP SETTINGS CARD */}
+                <div className={`card ${styles.dashboardCard}`}>
+                    <h2 className={styles.sectionTitle}>
+                        SMTP SETTINGS
+                    </h2>
+                    <form onSubmit={handleUpdateSMTP}>
+                        <div className={styles.formGroup}>
+                            <label htmlFor="smtpHost">SMTP Host</label>
+                            <input
+                                type="text"
+                                id="smtpHost"
+                                value={smtpHost}
+                                onChange={(e) => setSmtpHost(e.target.value)}
+                                placeholder="smtp.example.com"
+                                disabled={settingsLoading}
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="smtpPort">SMTP Port</label>
+                            <input
+                                type="number"
+                                id="smtpPort"
+                                value={smtpPort}
+                                onChange={(e) => setSmtpPort(parseInt(e.target.value))}
+                                placeholder="587"
+                                disabled={settingsLoading}
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="smtpUser">SMTP User</label>
+                            <input
+                                type="text"
+                                id="smtpUser"
+                                value={smtpUser}
+                                onChange={(e) => setSmtpUser(e.target.value)}
+                                placeholder="user@example.com"
+                                disabled={settingsLoading}
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="smtpPassword">SMTP Password</label>
+                            <input
+                                type="password"
+                                id="smtpPassword"
+                                value={smtpPassword}
+                                onChange={(e) => setSmtpPassword(e.target.value)}
+                                placeholder="********"
+                                disabled={settingsLoading}
+                            />
+                        </div>
+
+                        <div className={styles.formGroup}>
+                            <label htmlFor="smtpFromEmail">From Email</label>
+                            <input
+                                type="email"
+                                id="smtpFromEmail"
+                                value={smtpFromEmail}
+                                onChange={(e) => setSmtpFromEmail(e.target.value)}
+                                placeholder="noreply@example.com"
+                                disabled={settingsLoading}
+                            />
+                        </div>
+
+                        <div className={styles.formGroup} style={{ flexDirection: 'row', alignItems: 'center', gap: '0.5rem' }}>
+                            <input
+                                type="checkbox"
+                                id="smtpSecure"
+                                checked={smtpSecure}
+                                onChange={(e) => setSmtpSecure(e.target.checked)}
+                                disabled={settingsLoading}
+                                style={{ width: 'auto', margin: 0 }}
+                            />
+                            <label htmlFor="smtpSecure" style={{ marginBottom: 0 }}>Secure (SSL/TLS)</label>
+                        </div>
+
+                        <button type="submit" className="btn btn-primary" disabled={settingsLoading}>
+                            SAVE SMTP SETTINGS
                         </button>
                     </form>
                 </div>
