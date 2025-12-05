@@ -23,7 +23,7 @@ export default async function PrivacyPolicyPage() {
         settings = null;
     }
     const customPrivacyPolicy = settings?.privacyPolicy || '';
-    const contactEmail = settings?.contactEmail || 'privacy@blackout.com';
+    const contactEmail = settings?.contactEmail || `privacy@${process.env.NEXTAUTH_URL}`;
     const hasCustomPolicy = customPrivacyPolicy.trim().length > 0;
 
     return (
@@ -96,7 +96,7 @@ export default async function PrivacyPolicyPage() {
                             </p>
                             <div className={styles.contactInfo}>
                                 <p><strong>Email:</strong> {contactEmail}</p>
-                                <p><strong>Website:</strong> <Link href="/">blackout.com</Link></p>
+                                <p><strong>Website:</strong> <Link href="/">{process.env.NEXTAUTH_URL}</Link></p>
                             </div>
                         </section>
                     </>
