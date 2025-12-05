@@ -1,5 +1,7 @@
+import fs from 'fs';
+import path from 'path';
 import Link from 'next/link';
-import { ArrowLeft, Shield, Mail } from 'lucide-react';
+import { ArrowLeft, Shield } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 import dynamic from 'next/dynamic';
 import PageLoader from '@/components/PageLoader';
@@ -14,17 +16,31 @@ export const metadata = {
     description: 'Privacy policy and cookie information for Blackout blog',
 };
 
-export default async function PrivacyPolicyPage() {
-    let settings;
+async function getPrivacyPolicy() {
     try {
-        settings = await prisma.settings.findFirst();
+        const settings = await prisma.settings.findFirst();
+        if (settings?.privacyPolicy && settings.privacyPolicy.trim().length > 0) {
+            return {
+                content: settings.privacyPolicy,
+                lastUpdated: settings.updatedAt,
+            };
+        }
     } catch (error) {
-        // Fallback for build time when DB isn't available
-        settings = null;
+        // DB not available at build time, fall through to default
     }
-    const customPrivacyPolicy = settings?.privacyPolicy || '';
-    const contactEmail = settings?.contactEmail || `privacy@${process.env.NEXTAUTH_URL}`;
-    const hasCustomPolicy = customPrivacyPolicy.trim().length > 0;
+
+    const filePath = path.join(process.cwd(), 'PRIVACY_POLICY.md');
+    const content = fs.readFileSync(filePath, 'utf8');
+    const stats = fs.statSync(filePath);
+
+    return {
+        content,
+        lastUpdated: stats.mtime,
+    };
+}
+
+export default async function PrivacyPolicyPage() {
+    const { content, lastUpdated } = await getPrivacyPolicy();
 
     return (
         <div className={styles.container}>
@@ -36,71 +52,13 @@ export default async function PrivacyPolicyPage() {
             <div className={styles.header}>
                 <Shield size={48} />
                 <h1>Privacy Policy</h1>
-                <p className={styles.lastUpdated}>Last Updated: {new Date(settings?.updatedAt || new Date()).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+                <p className={styles.lastUpdated}>
+                    Last Updated: {new Date(lastUpdated).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                </p>
             </div>
 
             <div className={styles.content}>
-                {hasCustomPolicy ? (
-                    <>
-                        {/* Custom Privacy Policy from Database */}
-                        <div className={styles.customPolicy}>
-                            <BlogMarkdownRenderer content={customPrivacyPolicy} />
-                        </div>
-                    </>
-                ) : (
-                    <>
-                        {/* Default Privacy Policy */}
-                        <section className={styles.section}>
-                            <h2>1. Introduction</h2>
-                            <p>
-                                Welcome to Blackout. We respect your privacy and are committed to protecting your personal data.
-                                This privacy policy explains how we collect, use, and safeguard your information when you visit our website.
-                            </p>
-                            <p className={styles.note}>
-                                <strong>Note:</strong> This is the default privacy policy. The site administrator can customize this content from the admin dashboard.
-                            </p>
-                        </section>
-
-                        <section className={styles.section}>
-                            <h2>2. Information We Collect</h2>
-                            <p>We may collect personal information when you interact with our website, including account information and usage data.</p>
-                        </section>
-
-                        <section className={styles.section}>
-                            <h2>3. How We Use Your Information</h2>
-                            <p>We use collected information for authentication, website functionality, analytics (with consent), security, and communication.</p>
-                        </section>
-
-                        <section className={styles.section}>
-                            <h2>4. Cookies</h2>
-                            <p>We use cookies to enhance your browsing experience. You can manage your cookie preferences through our cookie consent banner.</p>
-                        </section>
-
-                        <section className={styles.section}>
-                            <h2>5. Data Security</h2>
-                            <p>We implement appropriate technical and organizational measures to protect your personal data.</p>
-                        </section>
-
-                        <section className={styles.section}>
-                            <h2>6. Your Rights</h2>
-                            <p>Depending on your location, you may have rights regarding your personal data including access, correction, deletion, and portability.</p>
-                        </section>
-
-                        <section className={styles.section}>
-                            <div className={styles.sectionHeader}>
-                                <Mail size={24} />
-                                <h2>7. Contact Us</h2>
-                            </div>
-                            <p>
-                                If you have any questions about this privacy policy or our data practices, please contact us:
-                            </p>
-                            <div className={styles.contactInfo}>
-                                <p><strong>Email:</strong> {contactEmail}</p>
-                                <p><strong>Website:</strong> <Link href="/">{process.env.NEXTAUTH_URL}</Link></p>
-                            </div>
-                        </section>
-                    </>
-                )}
+                <BlogMarkdownRenderer content={content} />
             </div>
 
             <div className={styles.footer}>
