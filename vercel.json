@@ -1,0 +1,11 @@
+{
+    "builds": [
+        {
+            "src": "next.config.ts",
+            "use": "@vercel/next"
+        }
+    ],
+    "release": {
+        "command": "prisma migrate deploy"
+    }
+}
