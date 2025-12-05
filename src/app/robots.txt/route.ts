@@ -1,7 +1,7 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/prisma'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
     try {
         const settings = await prisma.settings.findFirst()
 
@@ -9,7 +9,8 @@ export async function GET() {
         const robotsTxt = settings?.robotsTxt || 'User-agent: *\nAllow: /'
 
         // Append sitemap URL if enabled
-        const baseUrl = process.env.NEXTAUTH_URL || 'http://localhost:3000'
+        const { protocol, host } = request.nextUrl
+        const baseUrl = `${protocol}//${host}`
         const sitemapLine = settings?.sitemapEnabled !== false
             ? `\nSitemap: ${baseUrl}/sitemap.xml`
             : ''
