@@ -54,9 +54,11 @@ ENV HOSTNAME="0.0.0.0"
 RUN echo '#!/bin/sh' > /app/docker-entrypoint.sh && \
     echo 'set -e' >> /app/docker-entrypoint.sh && \
     echo '' >> /app/docker-entrypoint.sh && \
-    echo '# Run Prisma migration for Analytics & SEO fields' >> /app/docker-entrypoint.sh && \
-    echo 'echo "Syncing database schema..."' >> /app/docker-entrypoint.sh && \
-    echo 'npx prisma db push --skip-generate --accept-data-loss' >> /app/docker-entrypoint.sh && \
+    echo '# Force a new migration and apply it' >> /app/docker-entrypoint.sh && \
+    echo 'echo "Forcing and running database migrations..."' >> /app/docker-entrypoint.sh && \
+    echo 'rm -rf prisma/migrations' >> /app/docker-entrypoint.sh && \
+    echo 'npx prisma migrate dev --name init' >> /app/docker-entrypoint.sh && \
+    echo 'sleep 2' >> /app/docker-entrypoint.sh && \
     echo '' >> /app/docker-entrypoint.sh && \
     echo '# Start the application' >> /app/docker-entrypoint.sh && \
     echo 'echo "Starting application..."' >> /app/docker-entrypoint.sh && \
