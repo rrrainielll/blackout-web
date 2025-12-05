@@ -50,6 +50,30 @@ A clean, developer-friendly blogging platform built with Next.js.
     ```
     Access the app at `http://localhost:3000`.
 
+## Deploying to Vercel (or other Serverless Platforms)
+
+Deploying a Next.js application with a database to a serverless environment like Vercel requires a few specific steps to ensure your database migrations are run correctly.
+
+1.  **Set Environment Variables:**
+    Your serverless hosting provider (e.g., Vercel) needs access to your `DATABASE_URL` and `NEXTAUTH_SECRET`. Add these to your project's environment variables in the Vercel dashboard.
+
+2.  **Configure the Build Command:**
+    The default `build` script in `package.json` is already configured to handle migrations:
+    ```json
+    "build": "prisma migrate deploy && prisma generate && next build"
+    ```
+    This command ensures that before a production build is created, your database is migrated to the latest version.
+
+3.  **Create Migrations Locally:**
+    Before you can deploy, you need to create migration files locally. Run the following command to generate a new migration after making changes to your `prisma/schema.prisma` file:
+    ```bash
+    npx prisma migrate dev --name <migration_name>
+    ```
+    For example: `npx prisma migrate dev --name add-post-model`.
+
+4.  **Push and Deploy:**
+    Commit the new migration files in the `prisma/migrations` directory and push your changes to GitHub. If your Vercel project is connected to your repository, this will automatically trigger a new deployment.
+
 ## Database Commands
 
 *   **Push Schema**: `npx prisma db push`
