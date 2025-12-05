@@ -98,12 +98,12 @@ export default async function RootLayout({
                                 </nav>
                             </div>
                         </header>
-                        <main className="container" style={{ flex: 1 }}>
-                            {children}
+                        <main>
+                            <div className="container">{children}</div>
                         </main>
                         <Footer />
+                        <CookieConsent />
                     </MobileMenuProvider>
-                    <CookieConsent />
                 </Providers>
             </body>
         </html>

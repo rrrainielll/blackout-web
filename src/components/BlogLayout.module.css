@@ -16,7 +16,6 @@
 
 .blogLayout {
   display: flex;
-  gap: var(--space-12);
   min-height: calc(100vh - 100px);
   width: 100%;
 }
@@ -27,32 +26,36 @@
 
 /* LEFT COLUMN - Navigation */
 .blogSidebarLeft {
-  flex: 0.7;
+  flex: 0 0 20%;
+  max-width: 20%;
   border-right: 1px solid var(--border);
   padding-right: var(--space-8);
+  padding-left: var(--space-8);
   position: sticky;
-  top: 6rem;
   align-self: flex-start;
-  height: calc(100vh - 6rem);
   overflow-y: auto;
 }
 
 /* MIDDLE COLUMN - All Posts */
 .blogSidebarMiddle {
-  flex: 1;
+  flex: 0 0 20%;
+  max-width: 20%;
   border-right: 1px solid var(--border);
   padding-right: var(--space-8);
+  padding-left: var(--space-8);
   position: sticky;
-  top: 6rem;
   align-self: flex-start;
-  height: calc(100vh - 6rem);
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* RIGHT COLUMN - Content */
 .blogContent {
-  flex: 2;
+  flex: 1;
   padding-bottom: var(--space-16);
+  padding-left: var(--space-8);
   min-width: 0;
 }
 
@@ -293,7 +296,6 @@
   border-radius: var(--radius-lg);
   border: 1px solid transparent;
   transition: all var(--transition-base);
-  margin-bottom: var(--space-2);
 }
 
 .postItem:hover {
@@ -390,7 +392,6 @@
 
 .allPostsHeader {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   font-size: var(--text-xs);
   color: var(--color-white);
