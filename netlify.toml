@@ -1,3 +1,3 @@
 [build]
-  command = "prisma db push && npm run build"
+  command = "npm run db:sync && npm run build"
   publish = ".next"

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint . --ext .ts,.tsx,.js,.jsx",
     "update-deps": "npx npm-check-updates -u --target minor && npm install",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "db:sync": "prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
