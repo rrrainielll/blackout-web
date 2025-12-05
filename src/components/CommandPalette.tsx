@@ -10,6 +10,7 @@ interface SearchResult {
     title: string;
     slug: string;
     excerpt?: string;
+    tags?: { id: number; name: string }[];
     type: 'post' | 'page';
 }
 
@@ -26,10 +27,20 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
     const [mounted, setMounted] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
     const router = useRouter();
+    const resultRefs = useRef<(HTMLAnchorElement | null)[]>([]); // To hold refs for each result item
 
     useEffect(() => {
         setMounted(true);
     }, []);
+
+    // Scroll to selected item
+    useEffect(() => {
+        if (resultRefs.current[selectedIndex]) {
+            resultRefs.current[selectedIndex]?.scrollIntoView({
+                block: 'nearest',
+            });
+        }
+    }, [selectedIndex]);
 
     // Focus input when modal opens
     useEffect(() => {
@@ -91,12 +102,13 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
 
     // Keyboard navigation
     const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+        if (results.length === 0) return;
         if (e.key === 'ArrowDown') {
             e.preventDefault();
-            setSelectedIndex(prev => Math.min(prev + 1, results.length - 1));
+            setSelectedIndex(prev => (prev + 1) % results.length);
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
-            setSelectedIndex(prev => Math.max(prev - 1, 0));
+            setSelectedIndex(prev => (prev - 1 + results.length) % results.length);
         } else if (e.key === 'Enter' && results.length > 0) {
             e.preventDefault();
             const selected = results[selectedIndex];
@@ -301,6 +313,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                             <div>
                                 {results.map((result, index) => (
                                     <Link
+                                        ref={el => { resultRefs.current[index] = el; }}
                                         key={result.id}
                                         href={`/?post=${result.slug}`}
                                         onClick={onClose}
@@ -355,6 +368,28 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                                         whiteSpace: 'nowrap'
                                                     }}>
                                                         <Highlighted text={result.excerpt} highlight={query} />
+                                                    </div>
+                                                )}
+
+                                                {/* Tags */}
+                                                {result.tags && result.tags.length > 0 && (
+                                                    <div style={{ 
+                                                        marginTop: '0.5rem',
+                                                        display: 'flex',
+                                                        flexWrap: 'wrap',
+                                                        gap: '0.5rem',
+                                                        fontSize: '0.75rem'
+                                                    }}>
+                                                        {result.tags.map(tag => (
+                                                            <span key={tag.id} style={{
+                                                                background: 'var(--hover)',
+                                                                padding: '0.2rem 0.5rem',
+                                                                borderRadius: '9999px',
+                                                                color: 'var(--foreground-muted)'
+                                                            }}>
+                                                                #{tag.name}
+                                                            </span>
+                                                        ))}
                                                     </div>
                                                 )}
                                             </div>

@@ -90,6 +90,7 @@ export async function GET(request: NextRequest) {
                 title: post.title,
                 slug: post.slug,
                 excerpt,
+                tags: post.tags.map(postTag => postTag.tag),
                 type: 'post' as const
             };
         });

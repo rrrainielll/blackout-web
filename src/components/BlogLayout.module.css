@@ -26,8 +26,8 @@
 
 /* LEFT COLUMN - Navigation */
 .blogSidebarLeft {
-  flex: 0 0 20%;
-  max-width: 20%;
+  flex: 0 0 15%;
+  max-width: 15%;
   border-right: 1px solid var(--border);
   padding-right: var(--space-8);
   padding-left: var(--space-8);
@@ -38,8 +38,8 @@
 
 /* MIDDLE COLUMN - All Posts */
 .blogSidebarMiddle {
-  flex: 0 0 20%;
-  max-width: 20%;
+  flex: 0 0 15%;
+  max-width: 15%;
   border-right: 1px solid var(--border);
   padding-right: var(--space-8);
   padding-left: var(--space-8);
@@ -56,6 +56,7 @@
   flex: 1;
   padding-bottom: var(--space-16);
   padding-left: var(--space-8);
+  padding-right: var(--space-8);
   min-width: 0;
 }
 
