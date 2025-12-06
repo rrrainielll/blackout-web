@@ -10,6 +10,7 @@ import { MobileMenuProvider } from '@/contexts/MobileMenuContext'
 import RouteLoadingBar from '@/components/RouteLoadingBar'
 import CookieConsent from '@/components/CookieConsent'
 import Footer from '@/components/Footer'
+import DatabaseConnection from '@/components/DatabaseConnection/DatabaseConnection'
 
 export async function generateMetadata(): Promise<Metadata> {
     try {
@@ -98,9 +99,11 @@ export default async function RootLayout({
                                 </nav>
                             </div>
                         </header>
-                        <main>
-                            <div className="container">{children}</div>
-                        </main>
+                        <DatabaseConnection>
+                            <main>
+                                <div className="container">{children}</div>
+                            </main>
+                        </DatabaseConnection>
                         <Footer />
                         <CookieConsent />
                     </MobileMenuProvider>
